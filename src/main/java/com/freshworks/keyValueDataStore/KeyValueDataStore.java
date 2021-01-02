@@ -16,13 +16,12 @@ private File timerDataFile;// file to store key , its time to live and time stam
 private Timer timer;
 private static KeyValueDataStore keyValueDataStore;
 
-private KeyValueDataStore() throws ProcessException
+private KeyValueDataStore()
 {
 this.filePath = "keyValueDataStore.data";
 this.timerDataFilePath = "timerDataFile.data";
 this.timerDataFile = new File(this.timerDataFilePath);
 this.file = new File(this.filePath);
-if(!this.file.renameTo(this.file)) throw new ProcessException("Key Value Data Store named : "+this.filePath+" ,already in use by some other process.");
 }
 
 private KeyValueDataStore(String filePath) throws ProcessException
@@ -35,7 +34,6 @@ this.file.getCanonicalPath(); //checking if given path is valid or not
 {
 throw new ProcessException("Invalid Key-Value DataStore file path: "+this.filePath);
 }
-if(!this.file.renameTo(this.file)) throw new ProcessException("Key Value Data Store named : "+this.filePath+" ,already in use by some other process.");
 int i = filePath.lastIndexOf('.');
 this.timerDataFilePath = filePath.substring(0,i) + "TimerDataFile.data";
 this.timerDataFile = new File(this.timerDataFilePath);
